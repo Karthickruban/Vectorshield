@@ -13,13 +13,13 @@
       "ASR_percent": 87.5,
       "Recall_percent": 12.5,
       "FPR_percent": 0.0,
-      "Avg_Latency_ms": 7.13
+      "Avg_Latency_ms": 6.026
     },
     "VectorShield_Dual_Tier": {
       "ASR_percent": 0.0,
       "Recall_percent": 100.0,
       "FPR_percent": 0.0,
-      "Avg_Latency_ms": 5.833,
+      "Avg_Latency_ms": 6.579,
       "ASR_Reduction_Factor": "500.0x"
     }
   },
