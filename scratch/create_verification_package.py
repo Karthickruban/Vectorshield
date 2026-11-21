@@ -13,7 +13,7 @@ import shutil
 import zipfile
 import json
 
-BASE_DIR = '/dist_home/suryansh/v/Vectorshield'
+BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 PKG_DIR = os.path.join(BASE_DIR, 'scratch', 'VectorShield_Verification_Package')
 ZIP_PATH = os.path.join(BASE_DIR, 'VectorShield_Verification_Package.zip')
 

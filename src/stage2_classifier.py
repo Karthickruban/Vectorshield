@@ -124,6 +124,8 @@ class Stage2ModernBERTClassifier:
                 latency = (time.perf_counter() - start_t) * 1000.0
                 return {
                     "prediction": "INJECTION" if is_injection else "CLEAN",
+            "label": "MALICIOUS" if is_injection else "CLEAN",
+                    "label": "MALICIOUS" if is_injection else "CLEAN",
                     "injection_probability": round(injection_prob, 4),
                     "confidence": round(conf, 4),
                     "latency_ms": round(latency, 2),
@@ -135,10 +137,10 @@ class Stage2ModernBERTClassifier:
         # Path B: Compact Neural Core with Embedding
         text_lower = text.lower()
         injection_triggers = [
-            "ignore previous", "disregard", "override", "bypass", "system directive",
-            "system notification", "debug mode", "exfiltrate", "dump", "base64",
+            "ignore previous", "ignore all", "disregard", "override", "admin override",
+            "bypass", "system directive", "system notification", "system error", "debug mode", "exfiltrate", "dump", "base64",
             "root privilege", "without confirmation", "pre-cleared", "unfiltered",
-            "emergency payment", "offshore escrow"
+            "emergency payment", "offshore escrow", "root access", "disable all"
         ]
         matched = [trig for trig in injection_triggers if trig in text_lower]
 
@@ -153,6 +155,7 @@ class Stage2ModernBERTClassifier:
 
         return {
             "prediction": "INJECTION" if is_injection else "CLEAN",
+            "label": "MALICIOUS" if is_injection else "CLEAN",
             "injection_probability": round(score, 4),
             "confidence": round(score if is_injection else (1.0 - score), 4),
             "latency_ms": round(latency, 2),

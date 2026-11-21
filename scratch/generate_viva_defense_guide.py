@@ -7,7 +7,7 @@ from reportlab.platypus import (
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib import colors
 
-base_dir = '/dist_home/suryansh/v/Vectorshield'
+base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 pdf_path = os.path.join(base_dir, 'VectorShield_Ultimate_Viva_and_Defense_Guide.pdf')
 md_path = os.path.join(base_dir, 'VectorShield_Ultimate_Viva_and_Defense_Guide.md')
 html_path = os.path.join(base_dir, 'VectorShield_Ultimate_Viva_and_Defense_Guide.html')

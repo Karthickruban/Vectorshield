@@ -27,3 +27,17 @@ logs/
 !models/stage2_compact/classifier_core.pt
 !thesis_aid.zip
 !VectorShield_Verification_Package.zip
+
+# Local personal and college documents
+NEW/
+gemini chats/
+abstract/
+zeroth review/
+paper/
+AID-A-Batch.pdf
+school_ai_fyp_policy.pdf
+First_Review_Sample_Presentation.pptx
+instructions_and_links.txt
+antigravity_chat.*
+antigrvaity_chat.*
+VectorShield_Full_Antigravity_Chat_History.*

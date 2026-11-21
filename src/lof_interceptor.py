@@ -147,6 +147,7 @@ class VectorShieldLOFInterceptor:
 
         return {
             "lof_score": round(scaled_lof, 4),
+            "lof_scaled": round(scaled_lof, 4),
             "raw_lof": round(raw_lof, 4),
             "cosine_dist": round(cos_dist, 4),
             "status": status,

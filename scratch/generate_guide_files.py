@@ -4,7 +4,7 @@ from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, HRFlowable
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib import colors
 
-base_dir = '/dist_home/suryansh/v/Vectorshield'
+base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 pdf_path = os.path.join(base_dir, 'VectorShield_UI_Testing_and_Verification_Guide.pdf')
 html_path = os.path.join(base_dir, 'VectorShield_UI_Testing_and_Verification_Guide.html')
 md_path = os.path.join(base_dir, 'VectorShield_UI_Testing_and_Verification_Guide.md')

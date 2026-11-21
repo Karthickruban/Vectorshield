@@ -89,10 +89,22 @@ class VectorShieldRAGPipeline:
         """Loads the sentence-transformer model for real-time query embedding."""
         try:
             from sentence_transformers import SentenceTransformer
-            self.embedding_model = SentenceTransformer('all-MiniLM-L6-v2')
-            print("[Pipeline] Loaded all-MiniLM-L6-v2 for real-time query embedding.")
-        except ImportError:
-            print("[WARNING] sentence-transformers not installed. Custom query embedding unavailable.")
+            try:
+                self.embedding_model = SentenceTransformer('all-MiniLM-L6-v2', local_files_only=True)
+                print("[Pipeline] Loaded cached all-MiniLM-L6-v2 model.")
+                return
+            except Exception:
+                pass
+
+            try:
+                urllib.request.urlopen('https://huggingface.co', timeout=1.5)
+                self.embedding_model = SentenceTransformer('all-MiniLM-L6-v2')
+                print("[Pipeline] Loaded all-MiniLM-L6-v2 from HuggingFace.")
+            except Exception:
+                print("[Pipeline] HuggingFace offline or unreachable. Using robust semantic fallback embedding.")
+                self.embedding_model = None
+        except Exception as e:
+            print(f"[Pipeline] Note on sentence-transformers ({e}). Using robust fallback.")
             self.embedding_model = None
 
     def _check_langgraph(self):

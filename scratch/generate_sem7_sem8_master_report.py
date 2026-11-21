@@ -18,7 +18,7 @@ from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib import colors
 from reportlab.pdfgen import canvas
 
-BASE_DIR = '/dist_home/suryansh/v/Vectorshield'
+BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 PDF_PATH = os.path.join(BASE_DIR, 'VectorShield_Semester_7_Completion_and_Semester_8_Strategic_Roadmap_Report.pdf')
 MD_PATH = os.path.join(BASE_DIR, 'VectorShield_Semester_7_Completion_and_Semester_8_Strategic_Roadmap_Report.md')
 HTML_PATH = os.path.join(BASE_DIR, 'VectorShield_Semester_7_Completion_and_Semester_8_Strategic_Roadmap_Report.html')

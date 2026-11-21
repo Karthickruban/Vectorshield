@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: enterprise-agent-rag
+  namespace: vectorshield-security
+  labels:
+    app: enterprise-agent-rag
+    security.vectorshield.io/protected: "true"
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: enterprise-agent-rag
+  template:
+    metadata:
+      labels:
+        app: enterprise-agent-rag
+      annotations:
+        vectorshield.io/stage1-threshold: "1.30"
+        vectorshield.io/stage1-quarantine: "2.00"
+        vectorshield.io/sidecar-mode: "envoy-sidecar"
+    spec:
+      containers:
+      # Main RAG Application Container
+      - name: enterprise-agent
+        image: python:3.11-slim
+        command: ["python", "app/agent_service.py"]
+        env:
+        - name: VECTOR_DB_HOST
+          value: "127.0.0.1"
+        - name: VECTOR_DB_PORT
+          value: "15001" # In-pod loopback to VectorShield Sidecar
+        resources:
+          requests:
+            cpu: 250m
+            memory: 512Mi
+
+      # VectorShield Out-of-Process Interceptor Sidecar (<500μs)
+      - name: vectorshield-proxy
+        image: vigneshvs2005/vectorshield-proxy:v1.0
+        ports:
+        - containerPort: 15001
+          name: proxy-listen
+        resources:
+          limits:
+            cpu: 500m
+            memory: 512Mi
+          requests:
+            cpu: 100m
+            memory: 128Mi
+        env:
+        - name: PROXY_PORT
+          value: "15001"
+        - name: UPSTREAM_VECTOR_DB
+          value: "pinecone-index.internal:443"
+        - name: SIEM_WEBHOOK_URL
+          value: "https://siem-collector.corp.internal/events"
